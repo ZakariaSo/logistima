@@ -1,0 +1,31 @@
+{
+  "name": "logistima",
+  "version": "1.0.0",
+  "description": "Smart delivery dispatcher for Casablanca",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "worker": "node dist/worker.js",
+    "test": "jest --runInBand",
+    "seed": "ts-node src/seeders/seed.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "sequelize": "^6.37.1",
+    "pg": "^8.11.5",
+    "redis": "^4.6.13",
+    "bullmq": "^5.10.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "nodemon": "^3.1.0",
+    "jest": "^29.7.0"
+  }
+}
