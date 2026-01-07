@@ -9,4 +9,4 @@ new bullmq_1.Worker('delivery', async (job) => {
     if (job.name === 'receipt') {
         console.log('Receipt generated');
     }
-}, { connection: { host: 'localhost', port: 6379 } });
+}, { connection: { host: process.env.REDIS_HOST || 'localhost', port: Number(process.env.REDIS_PORT) || 6379 } });

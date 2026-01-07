@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { sequelize } from '../config/database';
 import { DeliveryPerson, Parcel } from '../models';
 
@@ -5,7 +6,7 @@ export class DispatcherService {
   static async assign(parcelId: number) {
     return sequelize.transaction(async (t) => {
       const courier = await DeliveryPerson.findOne({
-        where: { availableSlots: { gt: 0 } },
+        where: { availableSlots: { [Op.gt]: 0 } },
         lock: t.LOCK.UPDATE,
         transaction: t
       });
