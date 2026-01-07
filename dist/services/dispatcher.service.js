@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DispatcherService = void 0;
+const sequelize_1 = require("sequelize");
 const database_1 = require("../config/database");
 const models_1 = require("../models");
 class DispatcherService {
     static async assign(parcelId) {
         return database_1.sequelize.transaction(async (t) => {
             const courier = await models_1.DeliveryPerson.findOne({
-                where: { availableSlots: { gt: 0 } },
+                where: { availableSlots: { [sequelize_1.Op.gt]: 0 } },
                 lock: t.LOCK.UPDATE,
                 transaction: t
             });
