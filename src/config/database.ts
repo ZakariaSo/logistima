@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config(); 
+
 import { Sequelize, Transaction } from 'sequelize';
 
 export const sequelize = new Sequelize(
@@ -8,11 +11,24 @@ export const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: 'postgres',
     logging: false,
-    isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE
+    isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE,
   }
 );
 
 export const connectDatabase = async () => {
-  await sequelize.authenticate();
-  await sequelize.sync({ alter : true});
+  let connected = false;
+
+  while (!connected) {
+    try {
+      await sequelize.authenticate();
+      connected = true;
+      console.log('✅ Database connected');
+    } catch (error) {
+      console.log('⏳ Waiting for database...');
+      await new Promise(res => setTimeout(res, 3000));
+    }
+  }
+
+  await sequelize.sync({ alter: true });
 };
+
